@@ -58,7 +58,7 @@
     .site-title {
       font-size: 24px;
       font-weight: 800;
-      letter-spacing: 2px;
+      letter-spacing: 1.5px;
       color: #ffc27a;
       line-height: 1;
       text-transform: uppercase;
@@ -155,7 +155,7 @@
     }
 
     .product-card {
-      width: 220px;
+      width: 260px;
       margin: 0 auto 24px;
       text-align: center;
       background: linear-gradient(180deg, rgba(255,140,0,0.12), rgba(255,255,255,0.03));
@@ -166,7 +166,7 @@
     }
 
     .product-card h2 {
-      font-size: 34px;
+      font-size: 30px;
       color: #ff9d2f;
       margin-bottom: 6px;
     }
@@ -384,7 +384,7 @@
       },
       LANTERNA: {
         name: 'LANTERNA',
-        price: ,
+        price: 0,
         materials: {
           'Vidros': 10,
           'Plásticos': 10,
@@ -425,7 +425,7 @@
           'Pastas de dente': 2
         }
       },
-      PEÇAS: {
+      PECAS: {
         name: 'PEÇAS DE ARMA MÉDIA',
         price: 0,
         materials: {
@@ -433,7 +433,7 @@
           'Cobres': 25,
           'Vidros': 25,
           'Borrachas': 25,
-          'Peças de Armas': 3,
+          'Peças de Arma': 3,
           'Corpo de Sub': 1,
           'Dinheiro Sujo': 1000
         }
@@ -452,21 +452,24 @@
           'Dinheiro Sujo': 500
         }
       },
-      TEC-9: {
+      'TEC-9': {
         name: 'TEC-9',
         price: 0,
         materials: {
           'Tubos de Plástico': 3,
           'Peças de Arma Média': 3,
-          'Dinheiro Sujo'': 500
+          'Dinheiro Sujo': 500
         }
       }
     };
 
-    let selectedProduct = 'A';
+    let selectedProduct = 'COLETE';
 
     function formatCurrency(value) {
-      return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+      return Number(value).toLocaleString('pt-BR', {
+        style: 'currency',
+        currency: 'BRL'
+      });
     }
 
     function renderProductButtons() {
@@ -476,7 +479,7 @@
       Object.keys(products).forEach(key => {
         const btn = document.createElement('button');
         btn.className = 'product-btn' + (key === selectedProduct ? ' active' : '');
-        btn.textContent = 'Produto ' + key;
+        btn.textContent = products[key].name;
         btn.onclick = () => {
           selectedProduct = key;
           updateProductCard();
@@ -500,7 +503,7 @@
       grid.innerHTML = '';
 
       Object.entries(materials).forEach(([material, amount]) => {
-        const total = amount * quantity;
+        const total = Number(amount) * Number(quantity);
         const card = document.createElement('div');
         card.className = 'resource-card';
         card.innerHTML = `
@@ -518,7 +521,7 @@
 
       renderResources(product.materials, qty);
 
-      const totalBase = product.price * qty;
+      const totalBase = Number(product.price) * qty;
       const totalFinal = totalBase + (totalBase * rate / 100);
       document.getElementById('totalValue').textContent = formatCurrency(totalFinal);
     }
