@@ -166,9 +166,9 @@
     }
 
     .product-btn {
-      background: linear-gradient(180deg, #1f1f1f, #181818);
-      color: #ffbf76;
-      border: 1px solid rgba(255, 140, 0, 0.16);
+      background: linear-gradient(180deg, #2b2b2b, #1f1f1f);
+      color: #bdbdbd;
+      border: 1px solid rgba(255, 255, 255, 0.08);
       padding: 13px 12px;
       border-radius: 16px;
       font-weight: 700;
@@ -182,7 +182,7 @@
     .product-btn:hover {
       transform: translateY(-2px);
       border-color: rgba(255, 157, 47, 0.34);
-      color: #ffe2bf;
+      color: #f0f0f0;
     }
 
     .product-btn.active {
@@ -393,8 +393,8 @@
 
     <div class="product-card">
       <div>
-        <h2 id="productName">COLETE</h2>
-        <div class="product-price" id="productPrice">R$ 0,00</div>
+        <h2 id="productName">PRODUTOS SELECIONADOS</h2>
+        <div class="product-price" id="productPrice">Escolha um ou mais produtos</div>
       </div>
       <input type="number" id="quantity" class="quantity-input" min="0" value="0" />
     </div>
@@ -514,7 +514,7 @@
       }
     };
 
-    let selectedProduct = 'COLETE';
+    let selectedProducts = [];
 
     function formatCurrency(value) {
       return Number(value).toLocaleString('pt-BR', {
@@ -529,31 +529,63 @@
 
       Object.keys(products).forEach(key => {
         const btn = document.createElement('button');
-        btn.className = 'product-btn' + (key === selectedProduct ? ' active' : '');
+        const isActive = selectedProducts.includes(key);
+
+        btn.className = 'product-btn' + (isActive ? ' active' : '');
         btn.textContent = products[key].name;
+
         btn.onclick = () => {
-          selectedProduct = key;
+          if (isActive) {
+            selectedProducts = selectedProducts.filter(product => product !== key);
+          } else {
+            selectedProducts.push(key);
+          }
+
           updateProductCard();
           renderProductButtons();
           calculateMaterials();
         };
+
         list.appendChild(btn);
       });
     }
 
     function updateProductCard() {
-      const product = products[selectedProduct];
-      document.getElementById('productName').textContent = product.name;
-      document.getElementById('productPrice').textContent = formatCurrency(product.price);
-      renderResources(product.materials, 0);
-      document.getElementById('totalValue').textContent = formatCurrency(0);
+      const productName = document.getElementById('productName');
+      const productPrice = document.getElementById('productPrice');
+
+      if (selectedProducts.length === 0) {
+        productName.textContent = 'PRODUTOS SELECIONADOS';
+        productPrice.textContent = 'Escolha um ou mais produtos';
+        renderResources({}, 1);
+        document.getElementById('totalValue').textContent = formatCurrency(0);
+        return;
+      }
+
+      const names = selectedProducts.map(key => products[key].name);
+      const totalPrice = selectedProducts.reduce((acc, key) => acc + Number(products[key].price), 0);
+
+      productName.textContent = names.join(' + ');
+      productPrice.textContent = `Valor unitário total: ${formatCurrency(totalPrice)}`;
     }
 
     function renderResources(materials, quantity) {
       const grid = document.getElementById('resourcesGrid');
       grid.innerHTML = '';
 
-      Object.entries(materials).forEach(([material, amount]) => {
+      const entries = Object.entries(materials);
+
+      if (entries.length === 0) {
+        grid.innerHTML = `
+          <div class="resource-card" style="grid-column: 1 / -1;">
+            <span>Nenhum produto selecionado</span>
+            <span class="resource-value">0</span>
+          </div>
+        `;
+        return;
+      }
+
+      entries.forEach(([material, amount]) => {
         const total = Number(amount) * Number(quantity);
         const card = document.createElement('div');
         card.className = 'resource-card';
@@ -568,24 +600,41 @@
     function calculateMaterials() {
       const qty = Number(document.getElementById('quantity').value) || 0;
       const rate = Number(document.getElementById('discount').value) || 0;
-      const product = products[selectedProduct];
 
-      renderResources(product.materials, qty);
+      let totalMaterials = {};
+      let totalBase = 0;
 
-      const totalBase = Number(product.price) * qty;
+      selectedProducts.forEach(key => {
+        const product = products[key];
+        totalBase += Number(product.price) * qty;
+
+        Object.entries(product.materials).forEach(([material, amount]) => {
+          totalMaterials[material] = (totalMaterials[material] || 0) + (Number(amount) * qty);
+        });
+      });
+
+      renderResources(totalMaterials, 1);
+
       const totalFinal = totalBase + (totalBase * rate / 100);
       document.getElementById('totalValue').textContent = formatCurrency(totalFinal);
     }
 
     function clearAll() {
+      selectedProducts = [];
       document.getElementById('quantity').value = 0;
       document.getElementById('discount').value = 0;
       updateProductCard();
       renderProductButtons();
+      renderResources({}, 1);
+      document.getElementById('totalValue').textContent = formatCurrency(0);
     }
+
+    document.getElementById('quantity').addEventListener('input', calculateMaterials);
+    document.getElementById('discount').addEventListener('change', calculateMaterials);
 
     renderProductButtons();
     updateProductCard();
+    renderResources({}, 1);
   </script>
 </body>
 </html>
