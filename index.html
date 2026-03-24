@@ -1,238 +1,661 @@
-<script>
-  const products = {
-    COLETE: {
-      name: 'COLETE',
-      price: 0,
-      materials: {
-        'Placas blindadas': 2,
-        'Lonas': 5
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RUPTURA</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap');
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background:
+        radial-gradient(circle at top center, rgba(255, 166, 0, 0.10), transparent 28%),
+        radial-gradient(circle at bottom left, rgba(255, 115, 0, 0.06), transparent 24%),
+        linear-gradient(135deg, #0f0f10, #171717 50%, #111111);
+      color: white;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 920px;
+      background: linear-gradient(180deg, rgba(34,34,34,0.96), rgba(24,24,24,0.98));
+      border: 1px solid rgba(255, 149, 0, 0.20);
+      border-radius: 24px;
+      box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.45),
+        inset 0 1px 0 rgba(255,255,255,0.04);
+      padding: 28px;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+    }
+
+    .site-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: 3px;
+      color: #ffd7a6;
+      line-height: 1;
+      text-transform: uppercase;
+      text-shadow:
+        0 0 12px rgba(255, 157, 47, 0.18),
+        0 0 28px rgba(255, 157, 47, 0.10);
+    }
+
+    .site-subtitle {
+      font-size: 11px;
+      color: #f4c996;
+      letter-spacing: 2.4px;
+      text-transform: uppercase;
+      opacity: 0.9;
+      margin-left: 2px;
+      font-weight: 600;
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 78px;
+      height: 78px;
+      border-radius: 22px;
+      overflow: hidden;
+      background: linear-gradient(180deg, rgba(255,140,0,0.12), rgba(255,255,255,0.03));
+      border: 1px solid rgba(255,140,0,0.26);
+      box-shadow:
+        0 0 24px rgba(255,140,0,0.12),
+        inset 0 1px 0 rgba(255,255,255,0.04);
+      flex-shrink: 0;
+    }
+
+    .logo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .discount-box {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-left: auto;
+      flex-wrap: wrap;
+    }
+
+    .discount-box label {
+      color: #ffc57d;
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    select, input {
+      background: linear-gradient(180deg, #141414, #101010);
+      color: #fff;
+      border: 1px solid rgba(255, 145, 0, 0.22);
+      border-radius: 14px;
+      padding: 11px 13px;
+      outline: none;
+      transition: 0.2s ease;
+      font-weight: 600;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.03);
+      min-height: 46px;
+    }
+
+    select {
+      -webkit-appearance: none;
+      appearance: none;
+      background-image:
+        linear-gradient(45deg, transparent 50%, #ffffff 50%),
+        linear-gradient(135deg, #ffffff 50%, transparent 50%);
+      background-position:
+        calc(100% - 18px) calc(50% - 3px),
+        calc(100% - 12px) calc(50% - 3px);
+      background-size: 6px 6px, 6px 6px;
+      background-repeat: no-repeat;
+      padding-right: 34px;
+    }
+
+    select option {
+      background: #171717;
+      color: #ffffff;
+    }
+
+    select:focus, input:focus {
+      border-color: #ff9d2f;
+      box-shadow: 0 0 0 4px rgba(255, 157, 47, 0.14);
+    }
+
+    .products-list {
+      margin-bottom: 20px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 12px;
+    }
+
+    .product-btn {
+      background: linear-gradient(180deg, #1f1f1f, #181818);
+      color: #ffbf76;
+      border: 1px solid rgba(255, 140, 0, 0.16);
+      padding: 13px 12px;
+      border-radius: 16px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+      cursor: pointer;
+      text-align: center;
+      transition: 0.2s ease;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.03);
+    }
+
+    .product-btn:hover {
+      transform: translateY(-2px);
+      border-color: rgba(255, 157, 47, 0.34);
+      color: #ffe2bf;
+    }
+
+    .product-btn.active {
+      background: linear-gradient(180deg, rgba(255,153,51,0.34), rgba(255,122,0,0.12));
+      color: #fff;
+      border-color: rgba(255,140,0,0.48);
+      box-shadow: 0 0 18px rgba(255,140,0,0.16);
+    }
+
+    .product-card {
+      background: linear-gradient(180deg, #1c1c1c, #171717);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 20px;
+      padding: 20px;
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      flex-wrap: wrap;
+      box-shadow:
+        0 10px 24px rgba(0,0,0,0.16),
+        inset 0 1px 0 rgba(255,255,255,0.03);
+    }
+
+    .product-card h2 {
+      font-size: 28px;
+      color: #ffb357;
+      margin-bottom: 4px;
+      letter-spacing: 1px;
+      font-weight: 800;
+      text-shadow: 0 0 12px rgba(255,157,47,0.14);
+    }
+
+    .product-price {
+      color: #ffd6a9;
+      font-weight: 600;
+      font-size: 15px;
+    }
+
+    .quantity-input {
+      width: 110px;
+      text-align: center;
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+    .section-title {
+      font-size: 22px;
+      margin: 8px 0 16px;
+      color: #ffc06f;
+      font-weight: 800;
+      letter-spacing: 0.8px;
+      text-align: center;
+      text-shadow: 0 0 10px rgba(255,157,47,0.10);
+    }
+
+    .resources-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 12px;
+      margin-bottom: 22px;
+    }
+
+    .resource-card {
+      background: linear-gradient(180deg, #1d1d1d, #171717);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 18px;
+      padding: 18px 16px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.03);
+    }
+
+    .resource-card span:first-child {
+      font-size: 13px;
+      font-weight: 600;
+      color: #e7d6c5;
+    }
+
+    .resource-value {
+      font-size: 28px;
+      font-weight: 800;
+      color: #ffab3d;
+      text-shadow: 0 0 10px rgba(255,157,47,0.12);
+    }
+
+    .summary {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .summary-box {
+      width: 100%;
+      max-width: 390px;
+      background: linear-gradient(180deg, rgba(255,140,0,0.18), rgba(255,255,255,0.04));
+      border: 1px solid rgba(255,140,0,0.24);
+      border-radius: 20px;
+      padding: 18px;
+      text-align: center;
+      font-size: 26px;
+      font-weight: 800;
+      color: #fff;
+      box-shadow:
+        0 0 24px rgba(255,140,0,0.08),
+        inset 0 1px 0 rgba(255,255,255,0.04);
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    button {
+      border: none;
+      padding: 14px 20px;
+      border-radius: 16px;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 0.4px;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .btn-calc {
+      background: linear-gradient(180deg, #ffb14f, #ff7f11);
+      color: #181818;
+      box-shadow: 0 10px 22px rgba(255, 140, 0, 0.24);
+    }
+
+    .btn-clear {
+      background: linear-gradient(180deg, #2c2c2c, #242424);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.10);
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.05);
+    }
+
+    @media (max-width: 700px) {
+      .topbar {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
       }
-    },
-    'TEC-9': {
-      name: 'TEC-9',
-      price: 0,
-      materials: {
-        'Tubos de Plástico': 3,
-        'Peças de Arma Média': 3,
-        'Dinheiro Sujo': 500
+
+      .brand {
+        justify-content: center;
       }
-    },
-    EMPUNHADURA: {
-      name: 'EMPUNHADURA',
-      price: 0,
-      materials: {
-        'Plásticos': 10,
-        'Borrachas': 10,
-        'Componente eletrônico': 1,
-        'Fita adesiva': 1
+
+      .discount-box {
+        margin-left: 0;
+        justify-content: center;
       }
-    },
-    LANTERNA: {
-      name: 'LANTERNA',
-      price: 0,
-      materials: {
-        'Vidros': 10,
-        'Plásticos': 10,
-        'Bateria AA': 1,
-        'Fita isolante': 1
+
+      .product-card {
+        justify-content: center;
+        text-align: center;
       }
-    },
-    PENTE: {
-      name: 'PENTE',
-      price: 0,
-      materials: {
-        'Alumínios': 35,
-        'Plásticos': 50,
-        'Borrachas': 50,
-        'Fitas isolantes': 2,
-        'Fitas adesivas': 2
+
+      .summary-box {
+        font-size: 20px;
       }
-    },
-    MIRA: {
-      name: 'MIRA',
-      price: 0,
-      materials: {
-        'Vidros': 10,
-        'Plásticos': 10,
-        'Bateria AA+': 1,
-        'Fita adesiva': 1
-      }
-    },
-    SILENCIADOR: {
-      name: 'SILENCIADOR',
-      price: 0,
-      materials: {
-        'Cobres': 25,
-        'Plásticos': 50,
-        'Garrafa vazia': 1,
-        'Fita isolante': 1,
-        'Fita adesiva': 1,
-        'Pastas de dente': 2
-      }
-    },
-    PECAS: {
-      name: 'PEÇAS DE ARMA MÉDIA',
-      price: 0,
-      materials: {
-        'Alumínios': 25,
-        'Cobres': 25,
-        'Vidros': 25,
-        'Borrachas': 25,
-        'Peças de Arma': 3,
-        'Corpo de Sub': 1,
-        'Dinheiro Sujo': 1000
-      }
-    },
-    PLACA: {
-      name: 'PLACA BLINDADA',
-      price: 0,
-      materials: {
-        'Alumínios': 40,
-        'Cobres': 40,
-        'Vidros': 70,
-        'Plásticos': 70,
-        'Borrachas': 80,
-        'Chapas': 2,
-        'Placas': 2,
-        'Dinheiro Sujo': 500
+
+      .site-title {
+        font-size: 24px;
       }
     }
-  };
-
-  let selectedProduct = 'COLETE';
-
-  // Aqui vai ficar salvo quanto tem de cada produto
-  const cart = {};
-
-  function formatCurrency(value) {
-    return Number(value).toLocaleString('pt-BR', {
-      style: 'currency',
-      currency: 'BRL'
-    });
-  }
-
-  function renderProductButtons() {
-    const list = document.getElementById('productsList');
-    list.innerHTML = '';
-
-    Object.keys(products).forEach(key => {
-      const btn = document.createElement('button');
-      btn.className = 'product-btn' + (key === selectedProduct ? ' active' : '');
-      btn.textContent = products[key].name;
-      btn.onclick = () => {
-        selectedProduct = key;
-        updateProductCard();
-        renderProductButtons();
-      };
-      list.appendChild(btn);
-    });
-  }
-
-  function updateProductCard() {
-    const product = products[selectedProduct];
-    document.getElementById('productName').textContent = product.name;
-    document.getElementById('productPrice').textContent = formatCurrency(product.price);
-
-    // mostra a quantidade já salva desse produto
-    document.getElementById('quantity').value = cart[selectedProduct] || 0;
-
-    renderPreviewResources(product.materials, cart[selectedProduct] || 0);
-  }
-
-  // Mostra só a prévia do produto atual
-  function renderPreviewResources(materials, quantity) {
-    const grid = document.getElementById('resourcesGrid');
-    grid.innerHTML = '';
-
-    Object.entries(materials).forEach(([material, amount]) => {
-      const total = Number(amount) * Number(quantity);
-      const card = document.createElement('div');
-      card.className = 'resource-card';
-      card.innerHTML = `
-        <span>${material}</span>
-        <span class="resource-value">${total}</span>
-      `;
-      grid.appendChild(card);
-    });
-  }
-
-  // Soma tudo do carrinho
-  function calculateMaterials() {
-    const qty = Number(document.getElementById('quantity').value) || 0;
-    const rate = Number(document.getElementById('discount').value) || 0;
-
-    // salva a quantidade do produto atual no carrinho
-    cart[selectedProduct] = qty;
-
-    const totalMaterials = {};
-    let totalBase = 0;
-
-    Object.keys(cart).forEach(productKey => {
-      const quantity = Number(cart[productKey]) || 0;
-      if (quantity <= 0) return;
-
-      const product = products[productKey];
-
-      totalBase += Number(product.price) * quantity;
-
-      Object.entries(product.materials).forEach(([material, amount]) => {
-        if (!totalMaterials[material]) {
-          totalMaterials[material] = 0;
-        }
-        totalMaterials[material] += Number(amount) * quantity;
-      });
-    });
-
-    renderTotalResources(totalMaterials);
-
-    const totalFinal = totalBase + (totalBase * rate / 100);
-    document.getElementById('totalValue').textContent = formatCurrency(totalFinal);
-  }
-
-  // Mostra a soma total dos materiais de todos os produtos
-  function renderTotalResources(materials) {
-    const grid = document.getElementById('resourcesGrid');
-    grid.innerHTML = '';
-
-    if (Object.keys(materials).length === 0) {
-      grid.innerHTML = `
-        <div class="resource-card">
-          <span>Nenhum material</span>
-          <span class="resource-value">0</span>
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="topbar">
+      <div class="brand">
+        <div class="logo-container">
+          <img src="https://i.imgur.com/KOjV87R.png" alt="Logo" class="logo" />
         </div>
-      `;
-      return;
+        <div class="brand-text">
+          <div class="site-title">RUPTURA</div>
+          <div class="site-subtitle"></div>
+        </div>
+      </div>
+
+      <div class="discount-box">
+        <label for="discount">Taxa / Desconto:</label>
+        <select id="discount">
+          <option value="0">Nenhum</option>
+          <option value="5">+5%</option>
+          <option value="10">+10%</option>
+          <option value="20">+20%</option>
+          <option value="30">+30%</option>
+          <option value="-5">-5%</option>
+          <option value="-10">-10%</option>
+          <option value="-20">-20%</option>
+          <option value="-30">-30%</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="products-list" id="productsList"></div>
+
+    <div class="product-card">
+      <div>
+        <h2 id="productName">COLETE</h2>
+        <div class="product-price" id="productPrice">R$ 0,00</div>
+      </div>
+      <input type="number" id="quantity" class="quantity-input" min="0" value="0" />
+    </div>
+
+    <div class="section-title">Materiais Necessários</div>
+
+    <div class="resources-grid" id="resourcesGrid"></div>
+
+    <div class="summary">
+      <div class="summary-box">Total valor: <span id="totalValue">R$ 0,00</span></div>
+    </div>
+
+    <div class="buttons">
+      <button class="btn-calc" onclick="calculateMaterials()">Calcular</button>
+      <button class="btn-clear" onclick="clearAll()">Limpar</button>
+    </div>
+  </div>
+
+  <script>
+    const products = {
+      COLETE: {
+        name: 'COLETE',
+        price: 0,
+        materials: {
+          'Placas blindadas': 2,
+          'Lonas': 5
+        }
+      },
+      'TEC-9': {
+        name: 'TEC-9',
+        price: 0,
+        materials: {
+          'Tubos de Plástico': 3,
+          'Peças de Arma Média': 3,
+          'Dinheiro Sujo': 500
+        }
+      },
+      EMPUNHADURA: {
+        name: 'EMPUNHADURA',
+        price: 0,
+        materials: {
+          'Plásticos': 10,
+          'Borrachas': 10,
+          'Componente eletrônico': 1,
+          'Fita adesiva': 1
+        }
+      },
+      LANTERNA: {
+        name: 'LANTERNA',
+        price: 0,
+        materials: {
+          'Vidros': 10,
+          'Plásticos': 10,
+          'Bateria AA': 1,
+          'Fita isolante': 1
+        }
+      },
+      PENTE: {
+        name: 'PENTE',
+        price: 0,
+        materials: {
+          'Alumínios': 35,
+          'Plásticos': 50,
+          'Borrachas': 50,
+          'Fitas isolantes': 2,
+          'Fitas adesivas': 2
+        }
+      },
+      MIRA: {
+        name: 'MIRA',
+        price: 0,
+        materials: {
+          'Vidros': 10,
+          'Plásticos': 10,
+          'Bateria AA+': 1,
+          'Fita adesiva': 1
+        }
+      },
+      SILENCIADOR: {
+        name: 'SILENCIADOR',
+        price: 0,
+        materials: {
+          'Cobres': 25,
+          'Plásticos': 50,
+          'Garrafa vazia': 1,
+          'Fita isolante': 1,
+          'Fita adesiva': 1,
+          'Pastas de dente': 2
+        }
+      },
+      PECAS: {
+        name: 'PEÇAS DE ARMA MÉDIA',
+        price: 0,
+        materials: {
+          'Alumínios': 25,
+          'Cobres': 25,
+          'Vidros': 25,
+          'Borrachas': 25,
+          'Peças de Arma': 3,
+          'Corpo de Sub': 1,
+          'Dinheiro Sujo': 1000
+        }
+      },
+      PLACA: {
+        name: 'PLACA BLINDADA',
+        price: 0,
+        materials: {
+          'Alumínios': 40,
+          'Cobres': 40,
+          'Vidros': 70,
+          'Plásticos': 70,
+          'Borrachas': 80,
+          'Chapas': 2,
+          'Placas': 2,
+          'Dinheiro Sujo': 500
+        }
+      }
+    };
+
+    let selectedProduct = 'COLETE';
+    const cart = {};
+
+    function formatCurrency(value) {
+      return Number(value).toLocaleString('pt-BR', {
+        style: 'currency',
+        currency: 'BRL'
+      });
     }
 
-    Object.entries(materials).forEach(([material, total]) => {
-      const card = document.createElement('div');
-      card.className = 'resource-card';
-      card.innerHTML = `
-        <span>${material}</span>
-        <span class="resource-value">${total}</span>
-      `;
-      grid.appendChild(card);
+    function renderProductButtons() {
+      const list = document.getElementById('productsList');
+      list.innerHTML = '';
+
+      Object.keys(products).forEach(key => {
+        const btn = document.createElement('button');
+        btn.className = 'product-btn' + (key === selectedProduct ? ' active' : '');
+        btn.textContent = products[key].name;
+        btn.onclick = () => {
+          selectedProduct = key;
+          updateProductCard();
+          renderProductButtons();
+        };
+        list.appendChild(btn);
+      });
+    }
+
+    function updateProductCard() {
+      const product = products[selectedProduct];
+      const currentQty = cart[selectedProduct] || 0;
+
+      document.getElementById('productName').textContent = product.name;
+      document.getElementById('productPrice').textContent = formatCurrency(product.price);
+      document.getElementById('quantity').value = currentQty;
+
+      renderPreviewResources(product.materials, currentQty);
+      updateTotalValue();
+    }
+
+    function renderPreviewResources(materials, quantity) {
+      const grid = document.getElementById('resourcesGrid');
+      grid.innerHTML = '';
+
+      Object.entries(materials).forEach(([material, amount]) => {
+        const total = Number(amount) * Number(quantity);
+        const card = document.createElement('div');
+        card.className = 'resource-card';
+        card.innerHTML = `
+          <span>${material}</span>
+          <span class="resource-value">${total}</span>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    function renderTotalResources(materials) {
+      const grid = document.getElementById('resourcesGrid');
+      grid.innerHTML = '';
+
+      if (Object.keys(materials).length === 0) {
+        grid.innerHTML = `
+          <div class="resource-card">
+            <span>Nenhum material</span>
+            <span class="resource-value">0</span>
+          </div>
+        `;
+        return;
+      }
+
+      Object.entries(materials).forEach(([material, total]) => {
+        const card = document.createElement('div');
+        card.className = 'resource-card';
+        card.innerHTML = `
+          <span>${material}</span>
+          <span class="resource-value">${total}</span>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    function calculateMaterials() {
+      const qty = Number(document.getElementById('quantity').value) || 0;
+      cart[selectedProduct] = qty;
+
+      const totalMaterials = {};
+
+      Object.keys(cart).forEach(productKey => {
+        const quantity = Number(cart[productKey]) || 0;
+        if (quantity <= 0) return;
+
+        const product = products[productKey];
+
+        Object.entries(product.materials).forEach(([material, amount]) => {
+          if (!totalMaterials[material]) {
+            totalMaterials[material] = 0;
+          }
+          totalMaterials[material] += Number(amount) * quantity;
+        });
+      });
+
+      renderTotalResources(totalMaterials);
+      updateTotalValue();
+    }
+
+    function updateTotalValue() {
+      const rate = Number(document.getElementById('discount').value) || 0;
+      let totalBase = 0;
+
+      Object.keys(cart).forEach(productKey => {
+        const quantity = Number(cart[productKey]) || 0;
+        if (quantity <= 0) return;
+
+        totalBase += Number(products[productKey].price) * quantity;
+      });
+
+      const totalFinal = totalBase + (totalBase * rate / 100);
+      document.getElementById('totalValue').textContent = formatCurrency(totalFinal);
+    }
+
+    function clearAll() {
+      document.getElementById('quantity').value = 0;
+      document.getElementById('discount').value = 0;
+
+      Object.keys(cart).forEach(key => delete cart[key]);
+
+      document.getElementById('totalValue').textContent = formatCurrency(0);
+      updateProductCard();
+      renderProductButtons();
+    }
+
+    document.getElementById('quantity').addEventListener('input', () => {
+      const qty = Number(document.getElementById('quantity').value) || 0;
+      const product = products[selectedProduct];
+      renderPreviewResources(product.materials, qty);
     });
-  }
 
-  function clearAll() {
-    document.getElementById('quantity').value = 0;
-    document.getElementById('discount').value = 0;
+    document.getElementById('discount').addEventListener('change', () => {
+      updateTotalValue();
+    });
 
-    Object.keys(cart).forEach(key => delete cart[key]);
-
-    document.getElementById('totalValue').textContent = formatCurrency(0);
-    updateProductCard();
     renderProductButtons();
-  }
-
-  // Atualiza prévia ao digitar
-  document.getElementById('quantity').addEventListener('input', () => {
-    const qty = Number(document.getElementById('quantity').value) || 0;
-    const product = products[selectedProduct];
-    renderPreviewResources(product.materials, qty);
-  });
-
-  renderProductButtons();
-  updateProductCard();
-</script>
+    updateProductCard();
+  </script>
+</body>
+</html>
