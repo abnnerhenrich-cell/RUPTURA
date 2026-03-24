@@ -29,7 +29,7 @@
 
     .container {
       width: 100%;
-      max-width: 920px;
+      max-width: 980px;
       background: linear-gradient(180deg, rgba(34,34,34,0.96), rgba(24,24,24,0.98));
       border: 1px solid rgba(255, 149, 0, 0.20);
       border-radius: 24px;
@@ -69,19 +69,6 @@
       color: #ffd7a6;
       line-height: 1;
       text-transform: uppercase;
-      text-shadow:
-        0 0 12px rgba(255, 157, 47, 0.18),
-        0 0 28px rgba(255, 157, 47, 0.10);
-    }
-
-    .site-subtitle {
-      font-size: 11px;
-      color: #f4c996;
-      letter-spacing: 2.4px;
-      text-transform: uppercase;
-      opacity: 0.9;
-      margin-left: 2px;
-      font-weight: 600;
     }
 
     .logo-container {
@@ -94,9 +81,6 @@
       overflow: hidden;
       background: linear-gradient(180deg, rgba(255,140,0,0.12), rgba(255,255,255,0.03));
       border: 1px solid rgba(255,140,0,0.26);
-      box-shadow:
-        0 0 24px rgba(255,140,0,0.12),
-        inset 0 1px 0 rgba(255,255,255,0.04);
       flex-shrink: 0;
     }
 
@@ -130,27 +114,7 @@
       outline: none;
       transition: 0.2s ease;
       font-weight: 600;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.03);
       min-height: 46px;
-    }
-
-    select {
-      -webkit-appearance: none;
-      appearance: none;
-      background-image:
-        linear-gradient(45deg, transparent 50%, #ffffff 50%),
-        linear-gradient(135deg, #ffffff 50%, transparent 50%);
-      background-position:
-        calc(100% - 18px) calc(50% - 3px),
-        calc(100% - 12px) calc(50% - 3px);
-      background-size: 6px 6px, 6px 6px;
-      background-repeat: no-repeat;
-      padding-right: 34px;
-    }
-
-    select option {
-      background: #171717;
-      color: #ffffff;
     }
 
     select:focus, input:focus {
@@ -172,11 +136,9 @@
       padding: 13px 12px;
       border-radius: 16px;
       font-weight: 700;
-      letter-spacing: 0.3px;
       cursor: pointer;
       text-align: center;
       transition: 0.2s ease;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.03);
     }
 
     .product-btn:hover {
@@ -203,18 +165,13 @@
       justify-content: space-between;
       gap: 14px;
       flex-wrap: wrap;
-      box-shadow:
-        0 10px 24px rgba(0,0,0,0.16),
-        inset 0 1px 0 rgba(255,255,255,0.03);
     }
 
     .product-card h2 {
       font-size: 28px;
       color: #ffb357;
       margin-bottom: 4px;
-      letter-spacing: 1px;
       font-weight: 800;
-      text-shadow: 0 0 12px rgba(255,157,47,0.14);
     }
 
     .product-price {
@@ -232,12 +189,10 @@
 
     .section-title {
       font-size: 22px;
-      margin: 8px 0 16px;
+      margin: 12px 0 16px;
       color: #ffc06f;
       font-weight: 800;
-      letter-spacing: 0.8px;
       text-align: center;
-      text-shadow: 0 0 10px rgba(255,157,47,0.10);
     }
 
     .resources-grid {
@@ -256,7 +211,6 @@
       display: flex;
       flex-direction: column;
       gap: 8px;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.03);
     }
 
     .resource-card span:first-child {
@@ -269,7 +223,44 @@
       font-size: 28px;
       font-weight: 800;
       color: #ffab3d;
-      text-shadow: 0 0 10px rgba(255,157,47,0.12);
+    }
+
+    .cart-box {
+      background: linear-gradient(180deg, #1c1c1c, #171717);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 20px;
+      padding: 18px;
+      margin-bottom: 22px;
+    }
+
+    .cart-title {
+      font-size: 18px;
+      font-weight: 800;
+      color: #ffc06f;
+      margin-bottom: 12px;
+    }
+
+    .cart-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      background: #141414;
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 14px;
+      padding: 12px 14px;
+      flex-wrap: wrap;
+    }
+
+    .cart-empty {
+      color: #c8b7a6;
+      opacity: 0.9;
     }
 
     .summary {
@@ -289,9 +280,6 @@
       font-size: 26px;
       font-weight: 800;
       color: #fff;
-      box-shadow:
-        0 0 24px rgba(255,140,0,0.08),
-        inset 0 1px 0 rgba(255,255,255,0.04);
     }
 
     .buttons {
@@ -299,6 +287,7 @@
       justify-content: center;
       gap: 12px;
       flex-wrap: wrap;
+      margin-bottom: 18px;
     }
 
     button {
@@ -307,21 +296,33 @@
       border-radius: 16px;
       font-size: 16px;
       font-weight: 700;
-      letter-spacing: 0.4px;
       cursor: pointer;
       transition: 0.2s ease;
     }
 
-    .btn-calc {
+    .btn-add {
       background: linear-gradient(180deg, #ffb14f, #ff7f11);
       color: #181818;
-      box-shadow: 0 10px 22px rgba(255, 140, 0, 0.24);
+    }
+
+    .btn-calc {
+      background: linear-gradient(180deg, #ffd089, #ff9b21);
+      color: #181818;
     }
 
     .btn-clear {
       background: linear-gradient(180deg, #2c2c2c, #242424);
       color: #fff;
       border: 1px solid rgba(255,255,255,0.10);
+    }
+
+    .btn-remove {
+      background: #2a2a2a;
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: 8px 12px;
+      border-radius: 10px;
+      font-size: 13px;
     }
 
     button:hover {
@@ -369,7 +370,6 @@
         </div>
         <div class="brand-text">
           <div class="site-title">RUPTURA</div>
-          <div class="site-subtitle"></div>
         </div>
       </div>
 
@@ -399,17 +399,22 @@
       <input type="number" id="quantity" class="quantity-input" min="0" value="0" />
     </div>
 
-    <div class="section-title">Materiais Necessários</div>
+    <div class="buttons">
+      <button class="btn-add" onclick="addProduct()">Adicionar produto</button>
+      <button class="btn-calc" onclick="calculateMaterials()">Somar tudo</button>
+      <button class="btn-clear" onclick="clearAll()">Limpar</button>
+    </div>
 
+    <div class="cart-box">
+      <div class="cart-title">Produtos adicionados</div>
+      <div class="cart-list" id="cartList"></div>
+    </div>
+
+    <div class="section-title">Materiais Necessários</div>
     <div class="resources-grid" id="resourcesGrid"></div>
 
     <div class="summary">
       <div class="summary-box">Total valor: <span id="totalValue">R$ 0,00</span></div>
-    </div>
-
-    <div class="buttons">
-      <button class="btn-calc" onclick="calculateMaterials()">Calcular</button>
-      <button class="btn-clear" onclick="clearAll()">Limpar</button>
     </div>
   </div>
 
@@ -417,7 +422,7 @@
     const products = {
       COLETE: {
         name: 'COLETE',
-        price: 1,
+        price: 0,
         materials: {
           'Placas blindadas': 2,
           'Lonas': 5
@@ -425,7 +430,7 @@
       },
       'TEC-9': {
         name: 'TEC-9',
-        price: 1,
+        price: 0,
         materials: {
           'Tubos de Plástico': 3,
           'Peças de Arma Média': 3,
@@ -434,7 +439,7 @@
       },
       EMPUNHADURA: {
         name: 'EMPUNHADURA',
-        price: 1,
+        price: 0,
         materials: {
           'Plásticos': 10,
           'Borrachas': 10,
@@ -543,14 +548,10 @@
 
     function updateProductCard() {
       const product = products[selectedProduct];
-      const currentQty = cart[selectedProduct] || 0;
-
       document.getElementById('productName').textContent = product.name;
       document.getElementById('productPrice').textContent = formatCurrency(product.price);
-      document.getElementById('quantity').value = currentQty;
-
-      renderPreviewResources(product.materials, currentQty);
-      updateTotalValue();
+      document.getElementById('quantity').value = 1;
+      renderPreviewResources(product.materials, 1);
     }
 
     function renderPreviewResources(materials, quantity) {
@@ -567,6 +568,78 @@
         `;
         grid.appendChild(card);
       });
+    }
+
+    function addProduct() {
+      const qty = Number(document.getElementById('quantity').value) || 0;
+
+      if (qty <= 0) {
+        alert('Digite uma quantidade maior que zero.');
+        return;
+      }
+
+      if (!cart[selectedProduct]) {
+        cart[selectedProduct] = 0;
+      }
+
+      cart[selectedProduct] += qty;
+
+      renderCart();
+      calculateMaterials();
+    }
+
+    function renderCart() {
+      const cartList = document.getElementById('cartList');
+      cartList.innerHTML = '';
+
+      const keys = Object.keys(cart).filter(key => cart[key] > 0);
+
+      if (keys.length === 0) {
+        cartList.innerHTML = `<div class="cart-empty">Nenhum produto adicionado ainda.</div>`;
+        return;
+      }
+
+      keys.forEach(key => {
+        const item = document.createElement('div');
+        item.className = 'cart-item';
+        item.innerHTML = `
+          <div><strong>${products[key].name}</strong> — Quantidade: ${cart[key]}</div>
+          <button class="btn-remove" onclick="removeProduct('${key}')">Remover</button>
+        `;
+        cartList.appendChild(item);
+      });
+    }
+
+    function removeProduct(productKey) {
+      delete cart[productKey];
+      renderCart();
+      calculateMaterials();
+    }
+
+    function calculateMaterials() {
+      const totalMaterials = {};
+      let totalBase = 0;
+      const rate = Number(document.getElementById('discount').value) || 0;
+
+      Object.keys(cart).forEach(productKey => {
+        const quantity = Number(cart[productKey]) || 0;
+        if (quantity <= 0) return;
+
+        const product = products[productKey];
+        totalBase += Number(product.price) * quantity;
+
+        Object.entries(product.materials).forEach(([material, amount]) => {
+          if (!totalMaterials[material]) {
+            totalMaterials[material] = 0;
+          }
+          totalMaterials[material] += Number(amount) * quantity;
+        });
+      });
+
+      renderTotalResources(totalMaterials);
+
+      const totalFinal = totalBase + (totalBase * rate / 100);
+      document.getElementById('totalValue').textContent = formatCurrency(totalFinal);
     }
 
     function renderTotalResources(materials) {
@@ -594,54 +667,14 @@
       });
     }
 
-    function calculateMaterials() {
-      const qty = Number(document.getElementById('quantity').value) || 0;
-      cart[selectedProduct] = qty;
-
-      const totalMaterials = {};
-
-      Object.keys(cart).forEach(productKey => {
-        const quantity = Number(cart[productKey]) || 0;
-        if (quantity <= 0) return;
-
-        const product = products[productKey];
-
-        Object.entries(product.materials).forEach(([material, amount]) => {
-          if (!totalMaterials[material]) {
-            totalMaterials[material] = 0;
-          }
-          totalMaterials[material] += Number(amount) * quantity;
-        });
-      });
-
-      renderTotalResources(totalMaterials);
-      updateTotalValue();
-    }
-
-    function updateTotalValue() {
-      const rate = Number(document.getElementById('discount').value) || 0;
-      let totalBase = 0;
-
-      Object.keys(cart).forEach(productKey => {
-        const quantity = Number(cart[productKey]) || 0;
-        if (quantity <= 0) return;
-
-        totalBase += Number(products[productKey].price) * quantity;
-      });
-
-      const totalFinal = totalBase + (totalBase * rate / 100);
-      document.getElementById('totalValue').textContent = formatCurrency(totalFinal);
-    }
-
     function clearAll() {
+      Object.keys(cart).forEach(key => delete cart[key]);
       document.getElementById('quantity').value = 0;
       document.getElementById('discount').value = 0;
-
-      Object.keys(cart).forEach(key => delete cart[key]);
-
       document.getElementById('totalValue').textContent = formatCurrency(0);
+      renderCart();
+      calculateMaterials();
       updateProductCard();
-      renderProductButtons();
     }
 
     document.getElementById('quantity').addEventListener('input', () => {
@@ -651,10 +684,11 @@
     });
 
     document.getElementById('discount').addEventListener('change', () => {
-      updateTotalValue();
+      calculateMaterials();
     });
 
     renderProductButtons();
+    renderCart();
     updateProductCard();
   </script>
 </body>
