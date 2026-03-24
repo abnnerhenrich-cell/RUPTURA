@@ -1,252 +1,545 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RUPTURA</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RUPTURA</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, Helvetica, sans-serif;
+    }
 
-<style>
-*{box-sizing:border-box;margin:0;padding:0;font-family:Arial}
+    body {
+      background: linear-gradient(135deg, #111111, #1a1a1a, #22150b);
+      color: #f5f5f5;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
 
-body{
-  background:linear-gradient(135deg,#111,#1a1a1a,#22150b);
-  color:#fff;
-  display:flex;
-  justify-content:center;
-  padding:20px;
-}
+    .container {
+      width: 100%;
+      max-width: 1100px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+      border: 1px solid rgba(255, 136, 0, 0.18);
+      border-radius: 22px;
+      box-shadow: 0 0 30px rgba(255, 140, 0, 0.12);
+      padding: 24px;
+    }
 
-.container{
-  width:100%;
-  max-width:1100px;
-  background:rgba(255,255,255,0.03);
-  border:1px solid rgba(255,140,0,0.2);
-  border-radius:20px;
-  padding:20px;
-}
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 22px;
+    }
 
-/* HEADER */
-.topbar{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:20px;
-}
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
 
-.brand{
-  display:flex;
-  align-items:center;
-  gap:12px;
-}
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 4px;
+    }
 
-.logo-box{
-  width:70px;
-  height:70px;
-  border-radius:15px;
-  overflow:hidden;
-  border:1px solid rgba(255,140,0,0.3);
-}
+    .site-title {
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      color: #ffc27a;
+      line-height: 1;
+      text-transform: uppercase;
+      text-shadow: 0 1px 0 rgba(0,0,0,0.35);
+    }
 
-.logo{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-}
+    .site-subtitle {
+      font-size: 11px;
+      color: #e8c39d;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      opacity: 0.85;
+      margin-left: 1px;
+    }
 
-.title{
-  font-size:28px;
-  font-weight:900;
-  color:#ffb15a;
-  text-shadow:0 0 6px rgba(255,140,0,0.2);
-}
+    .logo-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 74px;
+      height: 74px;
+      border-radius: 18px;
+      overflow: hidden;
+      background: linear-gradient(180deg, rgba(255,140,0,0.08), rgba(255,255,255,0.02));
+      border: 1px solid rgba(255,140,0,0.18);
+      box-shadow: 0 0 18px rgba(255,140,0,0.10);
+      flex-shrink: 0;
+    }
 
-/* SELECT */
-.topbar select{
-  background:#111;
-  color:#fff;
-  border:1px solid #ff8c00;
-  padding:10px;
-  border-radius:10px;
-}
+    .logo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
 
-/* PRODUTOS */
-.products{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(120px,1fr));
-  gap:10px;
-  margin-bottom:20px;
-}
+    .discount-box {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-left: auto;
+      flex-wrap: wrap;
+    }
 
-.products button{
-  background:#1a1a1a;
-  border:1px solid #ff8c00;
-  color:#ffb15a;
-  padding:10px;
-  border-radius:10px;
-  cursor:pointer;
-}
+    .discount-box label {
+      color: #ffbb73;
+      font-weight: 700;
+    }
 
-.products button.active{
-  background:#ff8c00;
-  color:#000;
-}
+    select, input {
+      background: #161616;
+      color: #fff;
+      border: 1px solid rgba(255, 145, 0, 0.22);
+      border-radius: 12px;
+      padding: 10px 12px;
+      outline: none;
+      transition: 0.2s ease;
+    }
 
-/* CARD */
-.card{
-  text-align:center;
-  background:#1a1a1a;
-  padding:20px;
-  border-radius:15px;
-  border:1px solid #ff8c00;
-  margin-bottom:20px;
-}
+    select:focus, input:focus {
+      border-color: #ff8c00;
+      box-shadow: 0 0 0 3px rgba(255, 140, 0, 0.15);
+    }
 
-.card h2{
-  color:#ff8c00;
-  font-size:32px;
-}
+    .products-list {
+      margin-bottom: 20px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 10px;
+    }
 
-input{
-  background:#111;
-  border:1px solid #ff8c00;
-  color:#fff;
-  padding:10px;
-  border-radius:10px;
-  width:100%;
-  text-align:center;
-}
+    .product-btn {
+      background: #1b1b1b;
+      color: #ffb05a;
+      border: 1px solid rgba(255, 140, 0, 0.15);
+      padding: 12px;
+      border-radius: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      text-align: center;
+      transition: 0.2s ease;
+    }
 
-/* GRID */
-.grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
-  gap:10px;
-}
+    .product-btn:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.05);
+    }
 
-.item{
-  background:#111;
-  border:1px solid #ff8c00;
-  padding:10px;
-  border-radius:10px;
-  text-align:center;
-}
+    .product-btn.active {
+      background: linear-gradient(180deg, rgba(255,140,0,0.22), rgba(255,140,0,0.10));
+      color: #fff;
+      border-color: rgba(255,140,0,0.45);
+      box-shadow: 0 0 12px rgba(255,140,0,0.18);
+    }
 
-.valor{
-  font-size:22px;
-  color:#ff8c00;
-}
+    .product-card {
+      width: 220px;
+      margin: 0 auto 24px;
+      text-align: center;
+      background: linear-gradient(180deg, rgba(255,140,0,0.12), rgba(255,255,255,0.03));
+      border: 1px solid rgba(255,140,0,0.22);
+      border-radius: 18px;
+      padding: 18px;
+      box-shadow: 0 0 20px rgba(255,140,0,0.12);
+    }
 
-/* TOTAL */
-.total{
-  text-align:center;
-  font-size:22px;
-  margin:20px 0;
-}
+    .product-card h2 {
+      font-size: 34px;
+      color: #ff9d2f;
+      margin-bottom: 6px;
+    }
 
-button.calc{
-  width:100%;
-  padding:15px;
-  background:#ff8c00;
-  border:none;
-  border-radius:10px;
-  font-weight:bold;
-  cursor:pointer;
-}
-</style>
+    .product-price {
+      color: #ffd2a1;
+      font-weight: bold;
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+
+    .quantity-input {
+      width: 100%;
+      text-align: center;
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 24px;
+      color: #ffae52;
+      margin-bottom: 18px;
+      font-weight: 700;
+    }
+
+    .resources-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+
+    .resource-card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,140,0,0.05));
+      border: 1px solid rgba(255, 140, 0, 0.18);
+      border-radius: 16px;
+      padding: 14px;
+      text-align: center;
+      min-height: 96px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .resource-card span:first-child {
+      color: #f4f4f4;
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .resource-value {
+      color: #ff8c00;
+      font-size: 26px;
+      font-weight: 800;
+      text-shadow: 0 0 8px rgba(255, 140, 0, 0.22);
+    }
+
+    .summary {
+      text-align: center;
+      margin-bottom: 18px;
+    }
+
+    .summary-box {
+      display: inline-block;
+      background: rgba(255,140,0,0.08);
+      border: 1px solid rgba(255,140,0,0.18);
+      border-radius: 14px;
+      padding: 14px 22px;
+      font-size: 24px;
+      font-weight: bold;
+      color: #fff;
+      box-shadow: 0 0 14px rgba(255,140,0,0.10);
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    button {
+      border: none;
+      padding: 14px 24px;
+      border-radius: 12px;
+      font-size: 17px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .btn-calc {
+      background: linear-gradient(180deg, #ff9d2f, #ff7a00);
+      color: #111;
+      box-shadow: 0 0 18px rgba(255, 140, 0, 0.25);
+    }
+
+    .btn-clear {
+      background: #2a2a2a;
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.10);
+    }
+
+    button:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.05);
+    }
+
+    @media (max-width: 700px) {
+      .topbar {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .brand {
+        justify-content: center;
+      }
+
+      .discount-box {
+        margin-left: 0;
+        justify-content: center;
+      }
+
+      .product-card {
+        width: 100%;
+      }
+
+      .summary-box {
+        width: 100%;
+        font-size: 20px;
+      }
+
+      .site-title {
+        font-size: 22px;
+      }
+    }
+  </style>
 </head>
-
 <body>
-<div class="container">
+  <div class="container">
+    <div class="topbar">
+      <div class="brand">
+        <div class="logo-container">
+          <img src="https://i.imgur.com/KOjV87R.png" alt="Logo" class="logo" />
+        </div>
+        <div class="brand-text">
+          <div class="site-title">RUPTURA</div>
+          <div class="site-subtitle">Calculadora de Materiais</div>
+        </div>
+      </div>
 
-<div class="topbar">
-  <div class="brand">
-    <div class="logo-box">
-      <img src="https://i.imgur.com/KOjV87R.png" class="logo">
+      <div class="discount-box">
+        <label for="discount">Taxa / Desconto:</label>
+        <select id="discount">
+          <option value="0">Nenhum</option>
+          <optgroup label="Taxas (acréscimo)">
+            <option value="5">+5%</option>
+            <option value="10">+10%</option>
+            <option value="20">+20%</option>
+            <option value="30">+30%</option>
+            <option value="40">+40%</option>
+            <option value="50">+50%</option>
+          </optgroup>
+          <optgroup label="Descontos">
+            <option value="-5">-5%</option>
+            <option value="-10">-10%</option>
+            <option value="-20">-20%</option>
+            <option value="-30">-30%</option>
+            <option value="-40">-40%</option>
+            <option value="-50">-50%</option>
+          </optgroup>
+        </select>
+      </div>
     </div>
-    <div class="title">RUPTURA</div>
+
+    <div class="products-list" id="productsList"></div>
+
+    <div class="product-card">
+      <h2 id="productName">A</h2>
+      <div class="product-price" id="productPrice">R$ 0,00</div>
+      <input type="number" id="quantity" class="quantity-input" min="0" value="0" />
+    </div>
+
+    <div class="section-title">Materiais Necessários</div>
+
+    <div class="resources-grid" id="resourcesGrid"></div>
+
+    <div class="summary">
+      <div class="summary-box">Total valor: <span id="totalValue">R$ 0,00</span></div>
+    </div>
+
+    <div class="buttons">
+      <button class="btn-calc" onclick="calculateMaterials()">Calcular</button>
+      <button class="btn-clear" onclick="clearAll()">Limpar</button>
+    </div>
   </div>
 
-  <select id="taxa">
-    <option value="0">Nenhum</option>
+  <script>
+    const products = {
+      A: {
+        name: 'A',
+        price: 0,
+        materials: {
+          'Placas blindadas': 2,
+          'Lonas': 5
+        }
+      },
+      B: {
+        name: 'B',
+        price: 0,
+        materials: {
+          'Plásticos': 10,
+          'Borrachas': 10,
+          'Componente eletrônico': 1,
+          'Fita adesiva': 1
+        }
+      },
+      C: {
+        name: 'C',
+        price: 0,
+        materials: {
+          'Vidros': 10,
+          'Plásticos': 10,
+          'Bateria AA': 1,
+          'Fita isolante': 1
+        }
+      },
+      D: {
+        name: 'D',
+        price: 0,
+        materials: {
+          'Alumínios': 35,
+          'Plásticos': 50,
+          'Borrachas': 50,
+          'Fitas isolantes': 2,
+          'Fitas adesivas': 2
+        }
+      },
+      E: {
+        name: 'E',
+        price: 0,
+        materials: {
+          'Vidros': 10,
+          'Plásticos': 10,
+          'Fita AA+': 1,
+          'Fita adesiva': 1
+        }
+      },
+      F: {
+        name: 'F',
+        price: 0,
+        materials: {
+          'Cobres': 25,
+          'Plásticos': 50,
+          'Garrafa vazia': 1,
+          'Fita isolante': 1,
+          'Fita adesiva': 1,
+          'Pastas de dente': 2
+        }
+      },
+      G: {
+        name: 'G',
+        price: 1000,
+        materials: {
+          'Alumínios': 25,
+          'Cobres': 25,
+          'Vidros': 25,
+          'Borrachas': 25,
+          'Peças de': 3,
+          'Corpo de': 1,
+          'Real': 1000
+        }
+      },
+      H: {
+        name: 'H',
+        price: 500,
+        materials: {
+          'Alumínios': 40,
+          'Cobres': 40,
+          'Vidros': 70,
+          'Plásticos': 70,
+          'Borrachas': 80,
+          'Chapas': 2,
+          'Placas': 2,
+          'Real': 500
+        }
+      },
+      I: {
+        name: 'I',
+        price: 1000,
+        materials: {
+          'Alumínios': 25,
+          'Cobres': 25,
+          'Vidros': 25,
+          'Borrachas': 25,
+          'Peças de': 3,
+          'Corpo de': 1,
+          'Real sujo': 1000
+        }
+      }
+    };
 
-    <optgroup label="Taxas">
-      <option value="10">+10%</option>
-      <option value="20">+20%</option>
-      <option value="30">+30%</option>
-      <option value="50">+50%</option>
-    </optgroup>
+    let selectedProduct = 'A';
 
-    <optgroup label="Descontos">
-      <option value="-10">-10%</option>
-      <option value="-20">-20%</option>
-      <option value="-30">-30%</option>
-    </optgroup>
-  </select>
-</div>
+    function formatCurrency(value) {
+      return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+    }
 
-<div class="products" id="produtos"></div>
+    function renderProductButtons() {
+      const list = document.getElementById('productsList');
+      list.innerHTML = '';
 
-<div class="card">
-  <h2 id="nome">A</h2>
-  <input type="number" id="qtd" value="0">
-</div>
+      Object.keys(products).forEach(key => {
+        const btn = document.createElement('button');
+        btn.className = 'product-btn' + (key === selectedProduct ? ' active' : '');
+        btn.textContent = 'Produto ' + key;
+        btn.onclick = () => {
+          selectedProduct = key;
+          updateProductCard();
+          renderProductButtons();
+          calculateMaterials();
+        };
+        list.appendChild(btn);
+      });
+    }
 
-<div class="grid" id="materiais"></div>
+    function updateProductCard() {
+      const product = products[selectedProduct];
+      document.getElementById('productName').textContent = product.name;
+      document.getElementById('productPrice').textContent = formatCurrency(product.price);
+      renderResources(product.materials, 0);
+      document.getElementById('totalValue').textContent = formatCurrency(0);
+    }
 
-<div class="total">
-Total: <span id="total">R$ 0</span>
-</div>
+    function renderResources(materials, quantity) {
+      const grid = document.getElementById('resourcesGrid');
+      grid.innerHTML = '';
 
-<button class="calc" onclick="calc()">CALCULAR</button>
+      Object.entries(materials).forEach(([material, amount]) => {
+        const total = amount * quantity;
+        const card = document.createElement('div');
+        card.className = 'resource-card';
+        card.innerHTML = `
+          <span>${material}</span>
+          <span class="resource-value">${total}</span>
+        `;
+        grid.appendChild(card);
+      });
+    }
 
-</div>
+    function calculateMaterials() {
+      const qty = Number(document.getElementById('quantity').value) || 0;
+      const rate = Number(document.getElementById('discount').value) || 0;
+      const product = products[selectedProduct];
 
-<script>
-const produtos={
-A:{m:{placas:2,lonas:5}},
-B:{m:{plasticos:10,borrachas:10,eletronico:1,fita:1}},
-C:{m:{vidros:10,plasticos:10,bateria:1,fita:1}},
-D:{m:{aluminio:35,plasticos:50,borrachas:50,fita:2}},
-E:{m:{vidros:10,plasticos:10,fita:1}},
-F:{m:{cobre:25,plasticos:50,garrafa:1,fita:1,pasta:2}},
-G:{m:{aluminio:25,cobre:25,vidro:25,borracha:25,dinheiro:1000}},
-H:{m:{aluminio:40,cobre:40,vidro:70,plastico:70,borracha:80,dinheiro:500}},
-I:{m:{aluminio:25,cobre:25,vidro:25,borracha:25,dinheiro:1000}}
-};
+      renderResources(product.materials, qty);
 
-let atual="A";
+      const totalBase = product.price * qty;
+      const totalFinal = totalBase + (totalBase * rate / 100);
+      document.getElementById('totalValue').textContent = formatCurrency(totalFinal);
+    }
 
-function render(){
-  let d=document.getElementById("produtos");
-  d.innerHTML="";
-  Object.keys(produtos).forEach(p=>{
-    let b=document.createElement("button");
-    b.innerText=p;
-    b.onclick=()=>{atual=p;render();}
-    if(p==atual)b.classList.add("active");
-    d.appendChild(b);
-  });
-}
+    function clearAll() {
+      document.getElementById('quantity').value = 0;
+      document.getElementById('discount').value = 0;
+      updateProductCard();
+      renderProductButtons();
+    }
 
-function calc(){
-  let qtd=Number(document.getElementById("qtd").value);
-  let taxa=Number(document.getElementById("taxa").value);
-  let grid=document.getElementById("materiais");
-  grid.innerHTML="";
-
-  Object.entries(produtos[atual].m).forEach(([k,v])=>{
-    grid.innerHTML+=`<div class="item">${k}<div class="valor">${v*qtd}</div></div>`;
-  });
-
-  let total=qtd*100;
-  total+=total*(taxa/100);
-
-  document.getElementById("total").innerText=
-  total.toLocaleString("pt-BR",{style:"currency",currency:"BRL"});
-}
-
-render();
-</script>
-
+    renderProductButtons();
+    updateProductCard();
+  </script>
 </body>
 </html>
