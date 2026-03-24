@@ -316,7 +316,7 @@
         </div>
         <div class="brand-text">
           <div class="site-title">RUPTURA</div>
-          <div class="site-subtitle">Calculadora de Materiais</div>
+          <div class="site-subtitle"></div>
         </div>
       </div>
 
@@ -329,16 +329,12 @@
             <option value="10">+10%</option>
             <option value="20">+20%</option>
             <option value="30">+30%</option>
-            <option value="40">+40%</option>
-            <option value="50">+50%</option>
           </optgroup>
           <optgroup label="Descontos">
             <option value="-5">-5%</option>
             <option value="-10">-10%</option>
             <option value="-20">-20%</option>
             <option value="-30">-30%</option>
-            <option value="-40">-40%</option>
-            <option value="-50">-50%</option>
           </optgroup>
         </select>
       </div>
@@ -368,16 +364,16 @@
 
   <script>
     const products = {
-      A: {
-        name: 'A',
+      COLETE: {
+        name: 'COLETE',
         price: 0,
         materials: {
           'Placas blindadas': 2,
           'Lonas': 5
         }
       },
-      B: {
-        name: 'B',
+      EMPUNHADURA: {
+        name: 'EMPUNHADURA',
         price: 0,
         materials: {
           'Plásticos': 10,
@@ -386,9 +382,9 @@
           'Fita adesiva': 1
         }
       },
-      C: {
-        name: 'C',
-        price: 0,
+      LANTERNA: {
+        name: 'LANTERNA',
+        price: ,
         materials: {
           'Vidros': 10,
           'Plásticos': 10,
@@ -396,8 +392,8 @@
           'Fita isolante': 1
         }
       },
-      D: {
-        name: 'D',
+      PENTE: {
+        name: 'PENTE',
         price: 0,
         materials: {
           'Alumínios': 35,
@@ -407,18 +403,18 @@
           'Fitas adesivas': 2
         }
       },
-      E: {
-        name: 'E',
+      MIRA: {
+        name: 'MIRA',
         price: 0,
         materials: {
           'Vidros': 10,
           'Plásticos': 10,
-          'Fita AA+': 1,
+          'Bateria AA+': 1,
           'Fita adesiva': 1
         }
       },
-      F: {
-        name: 'F',
+      SILENCIADOR: {
+        name: 'SILENCIADOR',
         price: 0,
         materials: {
           'Cobres': 25,
@@ -429,22 +425,22 @@
           'Pastas de dente': 2
         }
       },
-      G: {
-        name: 'G',
-        price: 1000,
+      PEÇAS: {
+        name: 'PEÇAS DE ARMA MÉDIA',
+        price: 0,
         materials: {
           'Alumínios': 25,
           'Cobres': 25,
           'Vidros': 25,
           'Borrachas': 25,
-          'Peças de': 3,
-          'Corpo de': 1,
-          'Real': 1000
+          'Peças de Armas': 3,
+          'Corpo de Sub': 1,
+          'Dinheiro Sujo': 1000
         }
       },
-      H: {
-        name: 'H',
-        price: 500,
+      PLACA: {
+        name: 'PLACA BLINDADA',
+        price: 0,
         materials: {
           'Alumínios': 40,
           'Cobres': 40,
@@ -453,20 +449,16 @@
           'Borrachas': 80,
           'Chapas': 2,
           'Placas': 2,
-          'Real': 500
+          'Dinheiro Sujo': 500
         }
       },
-      I: {
-        name: 'I',
-        price: 1000,
+      TEC-9: {
+        name: 'TEC-9',
+        price: 0,
         materials: {
-          'Alumínios': 25,
-          'Cobres': 25,
-          'Vidros': 25,
-          'Borrachas': 25,
-          'Peças de': 3,
-          'Corpo de': 1,
-          'Real sujo': 1000
+          'Tubos de Plástico': 3,
+          'Peças de Arma Média': 3,
+          'Dinheiro Sujo'': 500
         }
       }
     };
