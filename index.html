@@ -107,18 +107,56 @@
       display: block;
     }
 
+    .toolbar {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-left: auto;
+      justify-content: flex-end;
+    }
+
+    .mode-box,
     .discount-box {
       display: flex;
       align-items: center;
       gap: 10px;
-      margin-left: auto;
       flex-wrap: wrap;
     }
 
+    .mode-box label,
     .discount-box label {
       color: #ffc57d;
       font-weight: 700;
       font-size: 14px;
+    }
+
+    .toggle-group {
+      display: flex;
+      gap: 8px;
+      background: rgba(255,255,255,0.03);
+      padding: 6px;
+      border-radius: 16px;
+      border: 1px solid rgba(255, 145, 0, 0.16);
+    }
+
+    .toggle-btn {
+      background: linear-gradient(180deg, #2b2b2b, #1f1f1f);
+      color: #d0d0d0;
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: 10px 16px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .toggle-btn.active {
+      background: linear-gradient(180deg, rgba(255,153,51,0.34), rgba(255,122,0,0.12));
+      color: #fff;
+      border-color: rgba(255,140,0,0.48);
+      box-shadow: 0 0 18px rgba(255,140,0,0.16);
     }
 
     select, input {
@@ -357,7 +395,7 @@
         justify-content: center;
       }
 
-      .discount-box {
+      .toolbar {
         margin-left: 0;
         justify-content: center;
       }
@@ -390,28 +428,36 @@
         </div>
       </div>
 
-      <div class="discount-box">
-        <label for="discount">Taxa / Desconto:</label>
-        <select id="discount">
-          <option value="0">Nenhum</option>
-          <option value="5">+5%</option>
-          <option value="10">+10%</option>
-          <option value="20">+20%</option>
-          <option value="30">+30%</option>
-          <option value="-5">-5%</option>
-          <option value="-10">-10%</option>
-          <option value="-20">-20%</option>
-          <option value="-30">-30%</option>
-        </select>
+      <div class="toolbar">
+        <div class="mode-box">
+          <label>Tipo:</label>
+          <div class="toggle-group">
+            <button type="button" class="toggle-btn active" id="btnCPF">CPF</button>
+            <button type="button" class="toggle-btn" id="btnCNPJ">CNPJ</button>
+          </div>
+        </div>
+
+        <div class="discount-box">
+          <label for="discount">Taxa / Desconto:</label>
+          <select id="discount">
+            <option value="0">Nenhum</option>
+            <option value="5">+5%</option>
+            <option value="10">+10%</option>
+            <option value="20">+20%</option>
+            <option value="30">+30%</option>
+            <option value="-5">-5%</option>
+            <option value="-10">-10%</option>
+            <option value="-20">-20%</option>
+            <option value="-30">-30%</option>
+          </select>
+        </div>
       </div>
     </div>
 
     <div class="products-list" id="productsList"></div>
-
     <div class="selected-products" id="selectedProductsContainer"></div>
 
     <div class="section-title">Materiais Necessários</div>
-
     <div class="resources-grid" id="resourcesGrid"></div>
 
     <div class="summary">
@@ -428,7 +474,10 @@
     const products = {
       COLETE: {
         name: 'COLETE',
-        price: 78000,
+        prices: {
+          CNPJ: 0,
+          CPF: 0
+        },
         materials: {
           'Placas blindadas': 2,
           'Lonas': 5
@@ -436,7 +485,10 @@
       },
       'TEC-9': {
         name: 'TEC-9',
-        price: 41600,
+        prices: {
+          CNPJ: 0,
+          CPF: 0
+        },
         materials: {
           'Tubos de Plástico': 3,
           'Peças de Arma Média': 3,
@@ -445,7 +497,10 @@
       },
       EMPUNHADURA: {
         name: 'EMPUNHADURA',
-        price: 1595,
+        prices: {
+          CNPJ: 0,
+          CPF: 0
+        },
         materials: {
           'Plásticos': 10,
           'Borrachas': 10,
@@ -455,7 +510,10 @@
       },
       LANTERNA: {
         name: 'LANTERNA',
-        price: 1625,
+        prices: {
+          CNPJ: 0,
+          CPF: 0
+        },
         materials: {
           'Vidros': 10,
           'Plásticos': 10,
@@ -465,7 +523,10 @@
       },
       PENTE: {
         name: 'PENTE',
-        price: 4225,
+        prices: {
+          CNPJ: 0,
+          CPF: 0
+        },
         materials: {
           'Alumínios': 35,
           'Plásticos': 50,
@@ -476,7 +537,10 @@
       },
       MIRA: {
         name: 'MIRA',
-        price: 2925,
+        prices: {
+          CNPJ: 0,
+          CPF: 0
+        },
         materials: {
           'Vidros': 10,
           'Plásticos': 10,
@@ -486,7 +550,10 @@
       },
       SILENCIADOR: {
         name: 'SILENCIADOR',
-        price: 4225,
+        prices: {
+          CNPJ: 0,
+          CPF: 0
+        },
         materials: {
           'Cobres': 25,
           'Plásticos': 50,
@@ -498,7 +565,10 @@
       },
       PECAS: {
         name: 'PEÇAS DE ARMA MÉDIA',
-        price: 0,
+        prices: {
+          CNPJ: 0,
+          CPF: 0
+        },
         materials: {
           'Alumínios': 25,
           'Cobres': 25,
@@ -511,7 +581,10 @@
       },
       PLACA: {
         name: 'PLACA BLINDADA',
-        price: 0,
+        prices: {
+          CNPJ: 0,
+          CPF: 0
+        },
         materials: {
           'Alumínios': 40,
           'Cobres': 40,
@@ -526,14 +599,31 @@
     };
 
     let selectedProducts = {};
-    // exemplo:
-    // { COLETE: 2, "TEC-9": 4 }
+    let currentMode = 'CPF';
 
     function formatCurrency(value) {
       return Number(value).toLocaleString('pt-BR', {
         style: 'currency',
         currency: 'BRL'
       });
+    }
+
+    function getProductPrice(product) {
+      if (product.prices && product.prices[currentMode] !== undefined) {
+        return Number(product.prices[currentMode]);
+      }
+      return Number(product.price || 0);
+    }
+
+    function setMode(mode) {
+      currentMode = mode;
+
+      document.getElementById('btnCPF').classList.toggle('active', mode === 'CPF');
+      document.getElementById('btnCNPJ').classList.toggle('active', mode === 'CNPJ');
+
+      renderProductButtons();
+      renderSelectedProducts();
+      calculateMaterials();
     }
 
     function renderProductButtons() {
@@ -543,9 +633,10 @@
       Object.keys(products).forEach(key => {
         const btn = document.createElement('button');
         const isActive = key in selectedProducts;
+        const product = products[key];
 
         btn.className = 'product-btn' + (isActive ? ' active' : '');
-        btn.textContent = products[key].name;
+        btn.textContent = product.name;
 
         btn.onclick = () => {
           if (isActive) {
@@ -584,6 +675,7 @@
       keys.forEach(key => {
         const product = products[key];
         const qty = selectedProducts[key];
+        const unitPrice = getProductPrice(product);
 
         const card = document.createElement('div');
         card.className = 'selected-product-card';
@@ -591,7 +683,7 @@
         card.innerHTML = `
           <div class="selected-product-info">
             <h3>${product.name}</h3>
-            <p>Valor unitário: ${formatCurrency(product.price)}</p>
+            <p>Valor unitário (${currentMode}): ${formatCurrency(unitPrice)}</p>
           </div>
 
           <div class="qty-box">
@@ -661,8 +753,9 @@
       Object.keys(selectedProducts).forEach(key => {
         const product = products[key];
         const qty = Number(selectedProducts[key]) || 0;
+        const unitPrice = getProductPrice(product);
 
-        totalBase += Number(product.price) * qty;
+        totalBase += unitPrice * qty;
 
         Object.entries(product.materials).forEach(([material, amount]) => {
           totalMaterials[material] = (totalMaterials[material] || 0) + (Number(amount) * qty);
@@ -677,7 +770,12 @@
 
     function clearAll() {
       selectedProducts = {};
+      currentMode = 'CPF';
       document.getElementById('discount').value = 0;
+
+      document.getElementById('btnCPF').classList.add('active');
+      document.getElementById('btnCNPJ').classList.remove('active');
+
       renderProductButtons();
       renderSelectedProducts();
       renderResources({});
@@ -685,6 +783,8 @@
     }
 
     document.getElementById('discount').addEventListener('change', calculateMaterials);
+    document.getElementById('btnCNPJ').addEventListener('click', () => setMode('CNPJ'));
+    document.getElementById('btnCPF').addEventListener('click', () => setMode('CPF'));
 
     renderProductButtons();
     renderSelectedProducts();
