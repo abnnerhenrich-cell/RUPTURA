@@ -599,7 +599,7 @@
     };
 
     let selectedProducts = {};
-    let currentMode = 'CPF';
+    let currentMode = 'CNPJ';
 
     function formatCurrency(value) {
       return Number(value).toLocaleString('pt-BR', {
@@ -618,8 +618,8 @@
     function setMode(mode) {
       currentMode = mode;
 
-      document.getElementById('btnCPF').classList.toggle('active', mode === 'CPF');
       document.getElementById('btnCNPJ').classList.toggle('active', mode === 'CNPJ');
+      document.getElementById('btnCPF').classList.toggle('active', mode === 'CPF');
 
       renderProductButtons();
       renderSelectedProducts();
